@@ -31,4 +31,8 @@ export class AppComponent implements AfterViewInit {
   onCourseSelected(course: Course) {
     console.log('Selected course:', course);
   }
+
+  trackCourse(course: Course) {
+    return course.id;
+  }
 }
