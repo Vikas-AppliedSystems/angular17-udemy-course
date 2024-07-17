@@ -32,7 +32,4 @@ export class AppComponent implements AfterViewInit {
     console.log('Selected course:', course);
   }
 
-  trackCourse(course: Course) {
-    return course.id;
-  }
 }
