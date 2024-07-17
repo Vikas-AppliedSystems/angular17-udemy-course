@@ -9,13 +9,14 @@ import { COURSES } from '../db-data';
 import { Course } from './model/course';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CourseImageComponent } from './course-image/course-image.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [CourseCardComponent, CourseImageComponent],
+  imports: [CourseCardComponent, CourseImageComponent, CommonModule],
 })
 export class AppComponent implements AfterViewInit {
   courses = COURSES;
