@@ -1,13 +1,31 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
+import { COURSES } from '../db-data';
+import { Course } from './model/course';
+import { CourseCardComponent } from './course-card/course-card.component';
+import { CourseImageComponent } from './course-image/course-image.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [CourseCardComponent, CourseImageComponent],
 })
-export class AppComponent {
-  title = 'angular17-udemy-course';
+export class AppComponent implements AfterViewInit {
+  courses = COURSES;
+
+  @ViewChildren(CourseCardComponent, { read: ElementRef })
+  cards: QueryList<ElementRef>;
+
+  constructor() {}
+
+  ngAfterViewInit() {}
+
+  onCourseSelected(course: Course) {}
 }
