@@ -28,5 +28,7 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit() {}
 
-  onCourseSelected(course: Course) {}
+  onCourseSelected(course: Course) {
+    console.log('Selected course:', course);
+  }
 }

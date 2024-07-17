@@ -25,7 +25,9 @@ import { CommonModule } from '@angular/common';
 export class CourseCardComponent
   implements OnInit, AfterViewInit, AfterContentInit
 {
-  @Input()
+  @Input({
+    required: true,
+  })
   course: Course;
 
   @Input()
@@ -35,7 +37,7 @@ export class CourseCardComponent
   courseEmitter = new EventEmitter<Course>();
 
   @ContentChildren(CourseImageComponent, { read: ElementRef })
-  images: QueryList<ElementRef> = new QueryList<ElementRef>();
+  images: QueryList<ElementRef>;
   noImageTpl: TemplateRef<any>;
 
   constructor() {}
