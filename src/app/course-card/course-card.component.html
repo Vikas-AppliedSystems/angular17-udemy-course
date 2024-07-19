@@ -6,7 +6,7 @@
 
   @if (course.id == 1) {
   <h1>This is a course with id {{ course.id }}.</h1>
-  } 
+  }
   <ng-content
     select="course-image"
     *ngIf="course.iconUrl; else noImage"
@@ -24,12 +24,16 @@
 
   <ng-content select=".course-description"></ng-content>
 
-  <div class="course-category" [ngSwitch]="course.category">
-    <div class="category" *ngSwitchCase="'BEGINNER'">Beginner</div>
-
-    <div class="category" *ngSwitchCase="'INTERMEDIATE'">Intermediate</div>
-
-    <div class="category" *ngSwitchCase="'ADVANCED'">Advanced</div>
+  <div class="course-category">
+    @switch (course.category) { @case ('BEGINNER') {
+    <div class="category">Beginner</div>
+    } @case ('INTERMEDIATE') {
+    <div class="category">Intermediate</div>
+    } @case ('ADVANCED') {
+    <div class="category">Advanced</div>
+    } @default {
+    <div class="category">Unknown</div>
+    } }
   </div>
 
   <button (click)="onCourseViewed()">View Course</button>
