@@ -5,6 +5,11 @@
   />
 </div>
 
+<div class="demo">
+  <!-- angular has lot of inbuilt pipes some are number, titleCase, upperCase, slice, keyvalue etc... -->
+ Today's Date:- {{ todaysDate | date: 'MMM/dd/YYYY' }}
+</div>
+
 @for (course of courses; track course.id;) {
 <div class="courses">
   <course-card
@@ -12,12 +17,11 @@
     [course]="course"
     [cardIndex]="$index"
   >
-  @if(course.id == 1){
+    @if(course.id == 1){
     <h1>This is a course with id {{ course.id }}</h1>
-  }
-  @else if (course.iconUrl) {
+    } @else if (course.iconUrl) {
     <course-image [src]="course.iconUrl"></course-image>
-  }
+    }
 
     <div class="course-description">
       {{ course.longDescription }}
