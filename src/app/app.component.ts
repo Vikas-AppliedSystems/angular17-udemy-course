@@ -24,6 +24,8 @@ export class AppComponent implements AfterViewInit {
   @ViewChildren(CourseCardComponent, { read: ElementRef })
   cards: QueryList<ElementRef>;
 
+  todaysDate = new Date();
+
   constructor() {}
 
   ngAfterViewInit() {}
@@ -31,4 +33,5 @@ export class AppComponent implements AfterViewInit {
   onCourseSelected(course: Course) {
     console.log('Selected course:', course);
   }
+
 }
