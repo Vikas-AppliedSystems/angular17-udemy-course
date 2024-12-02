@@ -28,7 +28,9 @@ export class AppComponent implements AfterViewInit {
 
   constructor() {}
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+    console.log(this.cards.first);
+  }
 
   onCourseSelected(course: Course) {
     console.log('Selected course:', course);
