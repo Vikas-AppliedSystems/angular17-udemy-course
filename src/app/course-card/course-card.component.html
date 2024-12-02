@@ -24,6 +24,9 @@
 
   <ng-content select=".course-description"></ng-content>
 
+  <!-- to display any extra information -->
+  <ng-content></ng-content>
+
   <div class="course-category">
     @switch (course.category) { @case ('BEGINNER') {
     <div class="category">Beginner</div>
