@@ -12,19 +12,20 @@
 
 @for (course of courses; track course.id;) {
 <div class="courses">
-  @if(!course.iconUrl) {
+  <!-- @if(!course.iconUrl) { -->
   <ng-template #blankImage let-courseName="description">
-    <h3>{{ courseName }} No image available</h3>
+    <h3>{{ courseName }} has No image available</h3>
   </ng-template>
 
-  <ng-container
+  <!--   <ng-container
     *ngTemplateOutlet="blankImage; context: { description: course.description }"
-  ></ng-container>
-  }
+  ></ng-container> -->
+  <!-- } -->
   <course-card
     (courseSelected)="onCourseSelected($event)"
     [course]="course"
     [cardIndex]="$index"
+    [noImageTpl]="blankImage"
   >
     @if(course.id == 1){
     <h1>This is a course with id {{ course.id }}</h1>

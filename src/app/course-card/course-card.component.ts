@@ -38,6 +38,8 @@ export class CourseCardComponent
 
   @ContentChildren(CourseImageComponent, { read: ElementRef })
   images: QueryList<ElementRef>;
+
+  @Input()
   noImageTpl: TemplateRef<any>;
 
   constructor() {}
