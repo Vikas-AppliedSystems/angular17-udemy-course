@@ -50,6 +50,9 @@ export class CourseCardComponent
   @ContentChild(CourseImageComponent, { read: ElementRef })
   contentChildCourseImageElementRef: ElementRef;
 
+  @ContentChildren(CourseImageComponent)
+  contentChilderCourseImageComponent: QueryList<CourseImageComponent>;
+
   @Output('courseSelected')
   courseEmitter = new EventEmitter<Course>();
 
@@ -63,8 +66,10 @@ export class CourseCardComponent
     // console.log('ngAfterViewInit', this.viewChildImage);
     // console.log('ngAfterViewInit', this.contentChildImage);
     // console.log('ngAfterViewInit', this.contentChildContainer);
-    console.log('ngAfterViewInit', this.contentChildCourseImageElementRef);
-    console.log('ngAfterViewInit', this.contentChildCourseImageComponent);
+    // console.log('ngAfterViewInit', this.contentChildCourseImageElementRef);
+    // console.log('ngAfterViewInit', this.contentChildCourseImageComponent);
+    // console.log('ngAfterViewInit', this.contentChilderCourseImageComponent);
+    console.log('ngAfterViewInit', this.images);
   }
 
   ngAfterContentInit() {}
