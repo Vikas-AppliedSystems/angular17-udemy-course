@@ -2,6 +2,7 @@ import {
   AfterContentInit,
   AfterViewInit,
   Component,
+  ContentChild,
   ContentChildren,
   ElementRef,
   EventEmitter,
@@ -10,6 +11,7 @@ import {
   Output,
   QueryList,
   TemplateRef,
+  ViewChild,
 } from '@angular/core';
 import { Course } from '../model/course';
 import { CourseImageComponent } from '../course-image/course-image.component';
@@ -33,6 +35,21 @@ export class CourseCardComponent
   @Input()
   cardIndex: number;
 
+  @ViewChild('courseImage') // view child does not see content projected image eg:- ng-content.
+  viewChildImage: any;
+
+  @ContentChild('courseImage')
+  contentChildImage: CourseImageComponent;
+
+  @ContentChild('container') // content child does not see anything else other than content projected.
+  contentChildContainer: any;
+
+  @ContentChild(CourseImageComponent)
+  contentChildCourseImageComponent: CourseImageComponent;
+
+  @ContentChild(CourseImageComponent, { read: ElementRef })
+  contentChildCourseImageElementRef: ElementRef;
+
   @Output('courseSelected')
   courseEmitter = new EventEmitter<Course>();
 
@@ -42,7 +59,13 @@ export class CourseCardComponent
 
   constructor() {}
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+    // console.log('ngAfterViewInit', this.viewChildImage);
+    // console.log('ngAfterViewInit', this.contentChildImage);
+    // console.log('ngAfterViewInit', this.contentChildContainer);
+    console.log('ngAfterViewInit', this.contentChildCourseImageElementRef);
+    console.log('ngAfterViewInit', this.contentChildCourseImageComponent);
+  }
 
   ngAfterContentInit() {}
 
