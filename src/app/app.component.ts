@@ -41,4 +41,8 @@ export class AppComponent implements AfterViewInit {
   onCourseSelected(course: Course) {
     console.log('Selected course:', course);
   }
+
+  onToggle(isHighlighted: boolean) {
+    console.log('Toggled highlight:', isHighlighted);
+  }
 }

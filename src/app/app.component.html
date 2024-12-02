@@ -23,7 +23,7 @@
   <!-- } -->
   <course-card
     appHighlighted
-    [highlighted]="true"
+    (toggleHighlight)="onToggle($event)"
     (courseSelected)="onCourseSelected($event)"
     [course]="course"
     [cardIndex]="$index"
