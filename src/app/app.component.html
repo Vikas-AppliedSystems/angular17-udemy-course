@@ -22,6 +22,8 @@
   ></ng-container> -->
   <!-- } -->
   <course-card
+    appHighlighted
+    [highlighted]="true"
     (courseSelected)="onCourseSelected($event)"
     [course]="course"
     [cardIndex]="$index"
