@@ -10,6 +10,7 @@ import {
 @Directive({
   selector: '[appHighlighted]',
   standalone: true,
+  exportAs: 'hl',
 })
 export class HighlightedDirective {
   @Input('highlighted') isHighlighted: boolean;
@@ -43,5 +44,9 @@ export class HighlightedDirective {
   onLeave() {
     this.isHighlighted = false;
     this.toggleHighlight.emit(this.isHighlighted);
+  }
+
+  toggle() {
+    this.isHighlighted = !this.isHighlighted;
   }
 }

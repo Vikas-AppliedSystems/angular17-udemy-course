@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   QueryList,
+  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { COURSES } from '../db-data';
@@ -32,10 +33,14 @@ export class AppComponent implements AfterViewInit {
 
   todaysDate = new Date();
 
+  @ViewChild(CourseCardComponent, { read: HighlightedDirective })
+  highlightedDirective: HighlightedDirective;
+
   constructor() {}
 
   ngAfterViewInit() {
     // console.log(this.cards.first);
+    console.log(this.highlightedDirective);
   }
 
   onCourseSelected(course: Course) {

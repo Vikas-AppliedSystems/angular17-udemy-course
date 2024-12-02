@@ -24,6 +24,7 @@
   <course-card
     appHighlighted
     (toggleHighlight)="onToggle($event)"
+    #highlightDirectiveRef="hl"
     (courseSelected)="onCourseSelected($event)"
     [course]="course"
     [cardIndex]="$index"
@@ -35,7 +36,7 @@
     <course-image [src]="course.iconUrl" #courseImage></course-image>
     }
 
-    <div class="course-description">
+    <div class="course-description" (dblclick)="highlightDirectiveRef.toggle()">
       {{ course.longDescription }}
     </div>
   </course-card>
