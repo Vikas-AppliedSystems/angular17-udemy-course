@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -7,11 +8,11 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { COURSES } from '../db-data';
-import { Course } from './model/course';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CourseImageComponent } from './course-image/course-image.component';
-import { CommonModule } from '@angular/common';
 import { HighlightedDirective } from './directives/highlighted.directive';
+import { NgxUnlessDirective } from './directives/ngx-unless.directive';
+import { Course } from './model/course';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ import { HighlightedDirective } from './directives/highlighted.directive';
     CourseImageComponent,
     CommonModule,
     HighlightedDirective,
+    NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
   ],
 })
 export class AppComponent implements AfterViewInit {

@@ -30,11 +30,7 @@
     [cardIndex]="$index"
     [noImageTpl]="blankImage"
   >
-    @if(course.id == 1){
-    <h1>This is a course with id {{ course.id }}</h1>
-    } @else if (course.iconUrl) {
-    <course-image [src]="course.iconUrl" #courseImage></course-image>
-    }
+    <course-image [src]="course.iconUrl"></course-image>
 
     <div class="course-description" (dblclick)="highlightDirectiveRef.toggle()">
       {{ course.longDescription }}
