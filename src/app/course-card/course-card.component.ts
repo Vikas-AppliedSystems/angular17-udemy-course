@@ -71,7 +71,7 @@ export class CourseCardComponent
     // console.log('ngAfterViewInit', this.contentChildCourseImageElementRef);
     // console.log('ngAfterViewInit', this.contentChildCourseImageComponent);
     // console.log('ngAfterViewInit', this.contentChilderCourseImageComponent);
-    console.log('ngAfterViewInit', this.images);
+    // console.log('ngAfterViewInit', this.images);
   }
 
   ngAfterContentInit() {}

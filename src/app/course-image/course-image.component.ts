@@ -5,16 +5,11 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './course-image.component.html',
-  styleUrl: './course-image.component.scss'
+  styleUrl: './course-image.component.scss',
 })
 export class CourseImageComponent {
   @Input('src')
-  imageUrl: string = '';
-
-
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+  imageUrl?: string;
+  constructor() {}
+  ngOnInit() {}
 }
