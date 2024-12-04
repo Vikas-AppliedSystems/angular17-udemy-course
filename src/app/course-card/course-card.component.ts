@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   AfterContentInit,
   AfterViewInit,
@@ -12,17 +13,18 @@ import {
   QueryList,
   TemplateRef,
   ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
-import { Course } from '../model/course';
 import { CourseImageComponent } from '../course-image/course-image.component';
-import { CommonModule } from '@angular/common';
+import { Course } from '../model/course';
 
 @Component({
   selector: 'course-card',
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.scss'],
   standalone: true,
-  imports: [CourseImageComponent, CommonModule],
+  imports: [CommonModule],
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class CourseCardComponent
   implements OnInit, AfterViewInit, AfterContentInit
