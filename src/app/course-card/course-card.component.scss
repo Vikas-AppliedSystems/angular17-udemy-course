@@ -20,6 +20,10 @@
   background: lightcyan;
 }
 
+:host-context(.salmon-theme) .course-card {
+  background: lightsalmon;
+}
+
 .course-card {
   margin-bottom: 40px;
   text-align: center;
