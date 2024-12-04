@@ -34,7 +34,8 @@
   font-weight: bold;
 }
 
-.course-card .course-description {
+// ng-deep is used when content is projected using ng-content or ng-template or ng-container
+.course-card ::ng-deep .course-description {
   max-width: 360px;
   margin: 0 auto;
   margin-top: 15px;
