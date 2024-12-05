@@ -9,6 +9,7 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CourseImageComponent } from './course-image/course-image.component';
 import { HighlightedDirective } from './directives/highlighted.directive';
@@ -30,7 +31,8 @@ import { Course } from './model/course';
   providers: [HttpClient],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  courses: Course[] = [];
+  // courses: Course[] = [];
+  courses$: Observable<Course[]>;
 
   @ViewChildren(CourseCardComponent, { read: ElementRef })
   cards: QueryList<ElementRef>;
@@ -56,11 +58,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    let params = new HttpParams().set('page', '1').set('pageSize', '10');
 
-    let params = new HttpParams().set("page", "1").set("pageSize", "10");
-
-    this.http.get('/api/courses', {params}).subscribe((courses) => {
-      this.courses = courses as Course[];
-    });
+    // this.http.get('/api/courses', {params}).subscribe((courses) => {
+    //   this.courses = courses as Course[];
+    // });
+    this.courses$ = this.http.get<Course[]>('/api/courses', { params });
   }
 }
