@@ -15,6 +15,7 @@ import { CourseImageComponent } from './course-image/course-image.component';
 import { HighlightedDirective } from './directives/highlighted.directive';
 import { NgxUnlessDirective } from './directives/ngx-unless.directive';
 import { Course } from './model/course';
+import { CoursesService } from './services/courses.service';
 
 @Component({
   selector: 'app-root',
@@ -42,7 +43,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(CourseCardComponent, { read: HighlightedDirective })
   highlightedDirective: HighlightedDirective;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private coursesService: CoursesService
+  ) {}
 
   ngAfterViewInit() {
     // console.log(this.cards.first);
@@ -58,6 +62,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    console.log(this.coursesService);
     let params = new HttpParams().set('page', '1').set('pageSize', '10');
 
     // this.http.get('/api/courses', {params}).subscribe((courses) => {
