@@ -7,12 +7,14 @@
   @if (course.id == 1) {
   <h1>This is a course with id {{ course.id }}.</h1>
   }
-  <ng-content
+
+  <ng-content select="course-image" *ngIf="course.iconUrl"></ng-content>
+  <!-- <ng-content
     select="course-image"
     *ngIf="course.iconUrl; else noImage"
-  ></ng-content>
+  ></ng-content> -->
 
-  <ng-template #noImage>
+  <!-- <ng-template #noImage>
     <ng-container
       *ngTemplateOutlet="
         noImageTpl;
@@ -20,9 +22,13 @@
       "
     >
     </ng-container>
-    <!-- the below will show in localhost not in github codespace -->
+    the below will show in localhost not in github codespace
     <img src="../../assets/empty-image.png" />
-  </ng-template>
+  </ng-template> -->
+
+  <div class="course-description">
+    Edit Title: <input #courseTitle [value]="course.description" />
+  </div>
 
   <ng-content select=".course-description"></ng-content>
 

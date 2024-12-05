@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnInit,
   QueryList,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { COURSES } from '../db-data';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CourseImageComponent } from './course-image/course-image.component';
 import { HighlightedDirective } from './directives/highlighted.directive';
@@ -26,9 +27,10 @@ import { Course } from './model/course';
     HighlightedDirective,
     NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
   ],
+  providers: [HttpClient],
 })
-export class AppComponent implements AfterViewInit {
-  courses = COURSES;
+export class AppComponent implements OnInit, AfterViewInit {
+  courses: Course[] = [];
 
   @ViewChildren(CourseCardComponent, { read: ElementRef })
   cards: QueryList<ElementRef>;
@@ -38,7 +40,7 @@ export class AppComponent implements AfterViewInit {
   @ViewChild(CourseCardComponent, { read: HighlightedDirective })
   highlightedDirective: HighlightedDirective;
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   ngAfterViewInit() {
     // console.log(this.cards.first);
@@ -51,5 +53,14 @@ export class AppComponent implements AfterViewInit {
 
   onToggle(isHighlighted: boolean) {
     console.log('Toggled highlight:', isHighlighted);
+  }
+
+  ngOnInit(): void {
+
+    let params = new HttpParams().set("page", "1").set("pageSize", "10");
+
+    this.http.get('/api/courses', {params}).subscribe((courses) => {
+      this.courses = courses as Course[];
+    });
   }
 }
