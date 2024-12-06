@@ -36,6 +36,7 @@
 .course-card .course-title {
   font-size: 27px;
   font-weight: bold;
+  margin-bottom: 16px;
 }
 
 // ng-deep is used when content is projected using ng-content or ng-template or ng-container
@@ -44,6 +45,10 @@
   margin: 0 auto;
   margin-top: 15px;
   user-select: none;
+}
+
+.course-card .course-description input {
+  font-size: 20px;
 }
 
 .course-card img {

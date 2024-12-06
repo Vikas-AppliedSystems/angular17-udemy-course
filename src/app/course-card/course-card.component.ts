@@ -24,7 +24,7 @@ import { Course } from '../model/course';
   styleUrls: ['./course-card.component.scss'],
   standalone: true,
   imports: [CommonModule],
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class CourseCardComponent
   implements OnInit, AfterViewInit, AfterContentInit
@@ -64,6 +64,9 @@ export class CourseCardComponent
   @Input()
   noImageTpl: TemplateRef<any>;
 
+  @Output('courseChanged')
+  courseChangedEmitter = new EventEmitter<Course>();
+
   constructor() {}
 
   ngAfterViewInit() {
@@ -99,5 +102,9 @@ export class CourseCardComponent
     return {
       'background-image': 'url(' + this.course.iconUrl + ')',
     };
+  }
+
+  onSaveClicked(description: string) {
+    this.courseChangedEmitter.emit({ ...this.course, description });
   }
 }

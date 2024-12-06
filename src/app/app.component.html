@@ -10,7 +10,7 @@
   Today's Date:- {{ todaysDate | date : "MMM/dd/YYYY" }}
 </div>
 
-@for (course of courses; track course.id;) {
+@for (course of (courses$ | async); track course.id;) {
 <div class="courses salmon-theme">
   <!-- @if(!course.iconUrl) { -->
   <ng-template #blankImage let-courseName="description">
@@ -29,6 +29,7 @@
     [course]="course"
     [cardIndex]="$index"
     [noImageTpl]="blankImage"
+    (courseChanged)="onCourseChanged($event)"
   >
     <course-image [src]="course.iconUrl"></course-image>
 
