@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
   Component,
@@ -43,10 +43,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(CourseCardComponent, { read: HighlightedDirective })
   highlightedDirective: HighlightedDirective;
 
-  constructor(
-    private http: HttpClient,
-    private coursesService: CoursesService
-  ) {}
+  constructor(private coursesService: CoursesService) {}
 
   ngAfterViewInit() {
     // console.log(this.cards.first);
@@ -62,12 +59,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log(this.coursesService);
-    let params = new HttpParams().set('page', '1').set('pageSize', '10');
-
-    // this.http.get('/api/courses', {params}).subscribe((courses) => {
-    //   this.courses = courses as Course[];
-    // });
-    this.courses$ = this.http.get<Course[]>('/api/courses', { params });
+    this.courses$ = this.coursesService.getCourses();
   }
 }
