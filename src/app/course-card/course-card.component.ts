@@ -7,6 +7,7 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
+  Inject,
   Input,
   OnInit,
   Output,
@@ -15,8 +16,10 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { COURSES_SERVICE } from '../app.component';
 import { CourseImageComponent } from '../course-image/course-image.component';
 import { Course } from '../model/course';
+import { CoursesService } from '../services/courses.service';
 
 @Component({
   selector: 'course-card',
@@ -67,7 +70,9 @@ export class CourseCardComponent
   @Output('courseChanged')
   courseChangedEmitter = new EventEmitter<Course>();
 
-  constructor() {}
+  constructor(
+    @Inject(COURSES_SERVICE) private coursesService: CoursesService
+  ) {}
 
   ngAfterViewInit() {
     // console.log('ngAfterViewInit', this.viewChildImage);
@@ -81,7 +86,9 @@ export class CourseCardComponent
 
   ngAfterContentInit() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('ngOnInit', this.coursesService);
+  }
 
   isImageVisible() {
     return this.course && this.course.iconUrl;

@@ -4,6 +4,8 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Inject,
+  InjectionToken,
   OnInit,
   QueryList,
   ViewChild,
@@ -17,6 +19,13 @@ import { NgxUnlessDirective } from './directives/ngx-unless.directive';
 import { Course } from './model/course';
 import { CoursesService } from './services/courses.service';
 
+function coursesServiceProvider(http: HttpClient) {
+  return new CoursesService(http);
+}
+
+export const COURSES_SERVICE = new InjectionToken<CoursesService>(
+  'COURSES_SERVICE'
+);
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -29,7 +38,14 @@ import { CoursesService } from './services/courses.service';
     HighlightedDirective,
     NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
   ],
-  providers: [HttpClient],
+  providers: [
+    HttpClient,
+    {
+      provide: COURSES_SERVICE,
+      useFactory: coursesServiceProvider,
+      deps: [HttpClient],
+    },
+  ],
 })
 export class AppComponent implements OnInit, AfterViewInit {
   // courses: Course[] = [];
@@ -43,7 +59,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(CourseCardComponent, { read: HighlightedDirective })
   highlightedDirective: HighlightedDirective;
 
-  constructor(private coursesService: CoursesService) {}
+  constructor(
+    @Inject(COURSES_SERVICE) private coursesService: CoursesService
+  ) {}
 
   ngAfterViewInit() {
     // console.log(this.cards.first);
