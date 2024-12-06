@@ -29,6 +29,7 @@
     [course]="course"
     [cardIndex]="$index"
     [noImageTpl]="blankImage"
+    (courseChanged)="onCourseChanged($event)"
   >
     <course-image [src]="course.iconUrl"></course-image>
 

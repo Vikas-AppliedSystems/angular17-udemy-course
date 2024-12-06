@@ -61,4 +61,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.courses$ = this.coursesService.getCourses();
   }
+
+  onCourseChanged(course: Course) {
+    this.coursesService.updateCourse(course);
+  }
 }
