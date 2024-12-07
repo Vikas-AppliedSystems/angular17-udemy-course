@@ -9,9 +9,9 @@ import {
   EventEmitter,
   Input,
   OnInit,
-  Optional,
   Output,
   QueryList,
+  Self,
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
@@ -27,6 +27,7 @@ import { CoursesService } from '../services/courses.service';
   standalone: true,
   imports: [CommonModule],
   encapsulation: ViewEncapsulation.Emulated,
+  providers: [CoursesService],
 })
 export class CourseCardComponent
   implements OnInit, AfterViewInit, AfterContentInit
@@ -69,7 +70,7 @@ export class CourseCardComponent
   @Output('courseChanged')
   courseChangedEmitter = new EventEmitter<Course>();
 
-  constructor(@Optional() private coursesService: CoursesService) {}
+  constructor(@Self() private coursesService: CoursesService) {}
 
   ngAfterViewInit() {
     // console.log('ngAfterViewInit', this.viewChildImage);
@@ -85,6 +86,7 @@ export class CourseCardComponent
 
   ngOnInit() {
     console.log('ngOnInit', this.coursesService);
+    console.log('id', this.coursesService.id);
   }
 
   isImageVisible() {

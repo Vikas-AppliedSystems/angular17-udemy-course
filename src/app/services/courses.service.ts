@@ -5,7 +5,12 @@ import { Course } from '../model/course';
 
 @Injectable()
 export class CoursesService {
-  constructor(private http: HttpClient) {}
+  id: number;
+  static counter = 0;
+  constructor(private http: HttpClient) {
+    CoursesService.counter++;
+    this.id = CoursesService.counter;
+  }
 
   getCourses(): Observable<Course[]> {
     let params = new HttpParams().set('page', '1').set('pageSize', '10');
