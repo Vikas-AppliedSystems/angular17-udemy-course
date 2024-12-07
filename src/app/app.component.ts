@@ -38,7 +38,7 @@ import { CoursesService } from './services/courses.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, AfterViewInit, DoCheck {
-  courses: Course[] | undefined = COURSES;
+  courses: Course[] = COURSES;
   courses$: Observable<Course[]>;
   coursesLoaded: boolean = false;
 
@@ -90,6 +90,9 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   }
 
   onEditButtonClick(): void {
-    this.courses = [];
+    // this.courses = [];
+    const course = this.courses[0];
+    const newCourse = { ...course, description: 'ngOnChanges' };
+    this.courses[0] = newCourse;
   }
 }

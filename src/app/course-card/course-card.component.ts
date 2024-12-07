@@ -10,10 +10,12 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
+  SimpleChanges,
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
@@ -32,7 +34,7 @@ import { CoursesService } from '../services/courses.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseCardComponent
-  implements OnInit, AfterViewInit, AfterContentInit, OnDestroy
+  implements OnInit, AfterViewInit, AfterContentInit, OnDestroy, OnChanges
 {
   @Input({
     required: true,
@@ -81,7 +83,7 @@ export class CourseCardComponent
   ) {
     console.log('type:', this.type);
     // console.log('typeAsInput:', this.typeAsInput);
-    console.log(this.course);
+    console.log('constructor', this.course);
   }
 
   ngAfterViewInit() {
@@ -99,11 +101,15 @@ export class CourseCardComponent
   ngOnInit() {
     console.log('ngOnInit', this.coursesService);
     // console.log('id', this.coursesService.id);
-    console.log('course', this.course);
+    console.log(' ngOnInit course', this.course);
   }
 
   ngOnDestroy(): void {
     console.log('ngOnDestroy');
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('ngOnChanges', changes);
   }
 
   isImageVisible() {
