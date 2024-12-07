@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Inject,
@@ -31,7 +33,7 @@ import { CoursesService } from './services/courses.service';
     NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
   ],
   providers: [HttpClient],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, AfterViewInit {
   courses: Course[] = [];
@@ -47,7 +49,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   constructor(
     private coursesService: CoursesService,
-    @Inject(CONFIG_TOKEN) private config: AppConfig
+    @Inject(CONFIG_TOKEN) private config: AppConfig,
+    private cd: ChangeDetectorRef
   ) {
     console.log('AppComponent config:', this.config);
     console.log('id', this.coursesService.id);
@@ -67,7 +70,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.courses$ = this.coursesService.getCourses();
+    this.coursesService.getCourses().subscribe((courses) => {
+      this.courses = courses;
+      this.cd.markForCheck();
+    });
   }
 
   onCourseChanged(course: Course) {
