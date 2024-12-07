@@ -131,7 +131,7 @@ export class CourseCardComponent
   ngAfterContentChecked(): void {
     console.log('ngAfterContentChecked');
     // this.course.iconUrl = '';
-    this.course.category = 'ADVANCED';
+    // this.course.category = 'ADVANCED';
     // this.course.longDescription = 'ngAfterContentChecked';
   }
 

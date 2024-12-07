@@ -20,6 +20,7 @@ import { CourseImageComponent } from './course-image/course-image.component';
 import { HighlightedDirective } from './directives/highlighted.directive';
 import { NgxUnlessDirective } from './directives/ngx-unless.directive';
 import { Course } from './model/course';
+import { FilterByCategoryPipe } from './pipes/filter-by-category.pipe';
 import { CoursesService } from './services/courses.service';
 @Component({
   selector: 'app-root',
@@ -32,6 +33,7 @@ import { CoursesService } from './services/courses.service';
     CommonModule,
     HighlightedDirective,
     NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
+    FilterByCategoryPipe,
   ],
   providers: [HttpClient],
   // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -90,8 +92,9 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
   onEditButtonClick(): void {
     // this.courses = [];
-    const course = this.courses[0];
-    const newCourse = { ...course, description: 'ngOnChanges' };
-    this.courses[0] = newCourse;
+    // const course = this.courses[0];
+    // const newCourse = { ...course, description: 'ngOnChanges' };
+    // this.courses[0] = newCourse;
+    this.courses[2].category = 'BEGINNER';
   }
 }
