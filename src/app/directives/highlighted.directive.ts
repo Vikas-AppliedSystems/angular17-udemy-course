@@ -19,7 +19,10 @@ export class HighlightedDirective {
   @Output() toggleHighlight: EventEmitter<boolean> =
     new EventEmitter<boolean>();
   constructor(private coursesService: CoursesService) {
-    console.log('coursesService highlighed', this.coursesService.id);
+    localStorage.setItem(
+      'coursesService highlighed',
+      this.coursesService.id.toString()
+    );
   }
 
   @HostBinding('class.highlighted')

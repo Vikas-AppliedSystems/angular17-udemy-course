@@ -1,18 +1,23 @@
 import { CommonModule } from '@angular/common';
 import {
+  AfterContentChecked,
   AfterContentInit,
+  AfterViewChecked,
   AfterViewInit,
   Attribute,
-  ChangeDetectionStrategy,
   Component,
   ContentChild,
   ContentChildren,
+  DoCheck,
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   QueryList,
+  SimpleChanges,
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
@@ -28,10 +33,20 @@ import { CoursesService } from '../services/courses.service';
   standalone: true,
   imports: [CommonModule],
   encapsulation: ViewEncapsulation.Emulated,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseCardComponent
-  implements OnInit, AfterViewInit, AfterContentInit
+  implements
+    OnInit,
+    AfterViewInit,
+    AfterContentInit,
+    OnDestroy,
+    OnChanges,
+    AfterContentChecked,
+    AfterViewChecked,
+    AfterContentInit,
+    AfterViewInit,
+    DoCheck
 {
   @Input({
     required: true,
@@ -78,8 +93,9 @@ export class CourseCardComponent
     private coursesService: CoursesService,
     @Attribute('type') private type: string
   ) {
-    console.log('type:', this.type);
-    console.log('typeAsInput:', this.typeAsInput);
+    localStorage.setItem('type:', this.type);
+    // console.log('typeAsInput:', this.typeAsInput);
+    // console.log('constructor', this.course);
   }
 
   ngAfterViewInit() {
@@ -90,13 +106,42 @@ export class CourseCardComponent
     // console.log('ngAfterViewInit', this.contentChildCourseImageComponent);
     // console.log('ngAfterViewInit', this.contentChilderCourseImageComponent);
     // console.log('ngAfterViewInit', this.images);
+    console.log('ngAfterViewInit');
   }
 
-  ngAfterContentInit() {}
+  ngAfterContentInit() {
+    console.log('ngAfterContentInit');
+  }
 
   ngOnInit() {
-    console.log('ngOnInit', this.coursesService);
-    console.log('id', this.coursesService.id);
+    localStorage.setItem('ngOnInit', JSON.stringify(this.coursesService));
+    // console.log('id', this.coursesService.id);
+    // console.log(' ngOnInit course', this.course);
+    console.log('ngOnInit');
+  }
+
+  ngOnDestroy(): void {
+    console.log('ngOnDestroy');
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('ngOnChanges', changes);
+  }
+
+  ngAfterContentChecked(): void {
+    console.log('ngAfterContentChecked');
+    // this.course.iconUrl = '';
+    this.course.category = 'ADVANCED';
+    // this.course.longDescription = 'ngAfterContentChecked';
+  }
+
+  ngAfterViewChecked(): void {
+    console.log('ngAfterViewChecked');
+    // this.course.description = 'ngAfterViewChecked';
+  }
+
+  ngDoCheck(): void {
+    console.log('ngDoCheck');
   }
 
   isImageVisible() {
