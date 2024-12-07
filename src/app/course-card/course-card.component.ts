@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   AfterContentInit,
   AfterViewInit,
+  Attribute,
   ChangeDetectionStrategy,
   Component,
   ContentChild,
@@ -70,7 +71,16 @@ export class CourseCardComponent
   @Output('courseChanged')
   courseChangedEmitter = new EventEmitter<Course>();
 
-  constructor(private coursesService: CoursesService) {}
+  @Input()
+  typeAsInput: string;
+
+  constructor(
+    private coursesService: CoursesService,
+    @Attribute('type') private type: string
+  ) {
+    console.log('type:', this.type);
+    console.log('typeAsInput:', this.typeAsInput);
+  }
 
   ngAfterViewInit() {
     // console.log('ngAfterViewInit', this.viewChildImage);
