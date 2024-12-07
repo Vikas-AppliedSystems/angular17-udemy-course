@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Inject,
@@ -32,6 +33,7 @@ import { COURSES } from '../db-data';
     NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
   ],
   providers: [HttpClient],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, AfterViewInit {
   courses: Course[] = COURSES;
