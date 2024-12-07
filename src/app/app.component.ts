@@ -5,6 +5,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DoCheck,
   ElementRef,
   Inject,
   OnInit,
@@ -35,9 +36,10 @@ import { CoursesService } from './services/courses.service';
   providers: [HttpClient],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit, AfterViewInit {
-  courses: Course[] = [];
+export class AppComponent implements OnInit, AfterViewInit, DoCheck {
+  courses: Course[];
   courses$: Observable<Course[]>;
+  coursesLoaded: boolean = false;
 
   @ViewChildren(CourseCardComponent, { read: ElementRef })
   cards: QueryList<ElementRef>;
@@ -72,8 +74,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.coursesService.getCourses().subscribe((courses) => {
       this.courses = courses;
-      this.cd.markForCheck();
+      this.coursesLoaded = true;
     });
+  }
+  ngDoCheck() {
+    console.log('ngDoCheck', this.courses, this.coursesLoaded);
+    if (this.coursesLoaded) {
+      this.cd.markForCheck(); // TODO: need to check why this is not working properly for onPUsh change detection.
+    }
   }
 
   onCourseChanged(course: Course) {
