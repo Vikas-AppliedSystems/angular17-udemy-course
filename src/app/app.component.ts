@@ -2,12 +2,14 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  DoCheck,
   ElementRef,
   Inject,
   OnInit,
   QueryList,
-  Self,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
@@ -31,11 +33,13 @@ import { CoursesService } from './services/courses.service';
     HighlightedDirective,
     NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
   ],
-  providers: [HttpClient, CoursesService],
+  providers: [HttpClient],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit, AfterViewInit {
-  // courses: Course[] = [];
+export class AppComponent implements OnInit, AfterViewInit, DoCheck {
+  courses: Course[];
   courses$: Observable<Course[]>;
+  coursesLoaded: boolean = false;
 
   @ViewChildren(CourseCardComponent, { read: ElementRef })
   cards: QueryList<ElementRef>;
@@ -46,8 +50,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   highlightedDirective: HighlightedDirective;
 
   constructor(
-    @Self() private coursesService: CoursesService,
-    @Inject(CONFIG_TOKEN) private config: AppConfig
+    private coursesService: CoursesService,
+    @Inject(CONFIG_TOKEN) private config: AppConfig,
+    private cd: ChangeDetectorRef
   ) {
     console.log('AppComponent config:', this.config);
     console.log('id', this.coursesService.id);
@@ -67,10 +72,27 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.courses$ = this.coursesService.getCourses();
+    this.coursesService.getCourses().subscribe((courses) => {
+      this.courses = courses;
+      this.coursesLoaded = true;
+    });
+  }
+  ngDoCheck() {
+    console.log('ngDoCheck', this.courses, this.coursesLoaded);
+    if (this.coursesLoaded) {
+      this.cd.markForCheck(); // TODO: need to check why this is not working properly for onPUsh change detection.
+    }
   }
 
   onCourseChanged(course: Course) {
     this.coursesService.updateCourse(course);
+  }
+
+  onEditButtonClick(): void {
+    // this.courses[0].description = "New Description";
+    const course = this.courses[0];
+    const newCourse = { ...course };
+    newCourse.description = 'New Description';
+    this.courses[0] = newCourse;
   }
 }

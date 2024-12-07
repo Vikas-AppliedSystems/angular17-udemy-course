@@ -1,7 +1,6 @@
 import {
   Directive,
   EventEmitter,
-  Host,
   HostBinding,
   HostListener,
   Input,
@@ -19,7 +18,7 @@ export class HighlightedDirective {
 
   @Output() toggleHighlight: EventEmitter<boolean> =
     new EventEmitter<boolean>();
-  constructor(@Host() private coursesService: CoursesService) {
+  constructor(private coursesService: CoursesService) {
     console.log('coursesService highlighed', this.coursesService.id);
   }
 

@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import {
   AfterContentInit,
   AfterViewInit,
+  Attribute,
+  ChangeDetectionStrategy,
   Component,
   ContentChild,
   ContentChildren,
@@ -26,9 +28,7 @@ import { CoursesService } from '../services/courses.service';
   standalone: true,
   imports: [CommonModule],
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [
-    // CoursesService
-  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseCardComponent
   implements OnInit, AfterViewInit, AfterContentInit
@@ -71,7 +71,16 @@ export class CourseCardComponent
   @Output('courseChanged')
   courseChangedEmitter = new EventEmitter<Course>();
 
-  constructor(private coursesService: CoursesService) {}
+  @Input()
+  typeAsInput: string;
+
+  constructor(
+    private coursesService: CoursesService,
+    @Attribute('type') private type: string
+  ) {
+    console.log('type:', this.type);
+    console.log('typeAsInput:', this.typeAsInput);
+  }
 
   ngAfterViewInit() {
     // console.log('ngAfterViewInit', this.viewChildImage);
@@ -113,5 +122,9 @@ export class CourseCardComponent
 
   onSaveClicked(description: string) {
     this.courseChangedEmitter.emit({ ...this.course, description });
+  }
+
+  onTitleChange(newTitle: string) {
+    this.course.description = newTitle;
   }
 }

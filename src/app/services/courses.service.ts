@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Course } from '../model/course';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CoursesService {
   id: number;
   static counter = 0;
