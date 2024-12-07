@@ -26,9 +26,6 @@ import { CoursesService } from '../services/courses.service';
   standalone: true,
   imports: [CommonModule],
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [
-    // CoursesService
-  ],
 })
 export class CourseCardComponent
   implements OnInit, AfterViewInit, AfterContentInit
