@@ -1,11 +1,13 @@
 import {
   Directive,
-  HostListener,
+  EventEmitter,
+  Host,
   HostBinding,
+  HostListener,
   Input,
   Output,
-  EventEmitter,
 } from '@angular/core';
+import { CoursesService } from '../services/courses.service';
 
 @Directive({
   selector: '[appHighlighted]',
@@ -17,7 +19,9 @@ export class HighlightedDirective {
 
   @Output() toggleHighlight: EventEmitter<boolean> =
     new EventEmitter<boolean>();
-  constructor() {}
+  constructor(@Host() private coursesService: CoursesService) {
+    console.log('coursesService highlighed', this.coursesService.id);
+  }
 
   @HostBinding('class.highlighted')
   get cssClasses() {
@@ -45,7 +49,6 @@ export class HighlightedDirective {
     this.isHighlighted = false;
     this.toggleHighlight.emit(this.isHighlighted);
   }
-
   toggle() {
     this.isHighlighted = !this.isHighlighted;
   }
