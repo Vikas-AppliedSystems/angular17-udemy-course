@@ -18,6 +18,7 @@ import { HighlightedDirective } from './directives/highlighted.directive';
 import { NgxUnlessDirective } from './directives/ngx-unless.directive';
 import { Course } from './model/course';
 import { CoursesService } from './services/courses.service';
+import { COURSES } from '../db-data';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -33,7 +34,7 @@ import { CoursesService } from './services/courses.service';
   providers: [HttpClient],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  // courses: Course[] = [];
+  courses: Course[] = COURSES;
   courses$: Observable<Course[]>;
 
   @ViewChildren(CourseCardComponent, { read: ElementRef })

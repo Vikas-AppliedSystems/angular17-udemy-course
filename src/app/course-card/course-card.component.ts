@@ -111,4 +111,8 @@ export class CourseCardComponent
   onSaveClicked(description: string) {
     this.courseChangedEmitter.emit({ ...this.course, description });
   }
+
+  onTitleChange(newTitle: string) {
+    this.course.description = newTitle;
+  }
 }
