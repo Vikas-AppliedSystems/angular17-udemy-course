@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import {
+  AfterContentChecked,
   AfterContentInit,
   AfterViewInit,
   Attribute,
-  ChangeDetectionStrategy,
   Component,
   ContentChild,
   ContentChildren,
@@ -31,10 +31,16 @@ import { CoursesService } from '../services/courses.service';
   standalone: true,
   imports: [CommonModule],
   encapsulation: ViewEncapsulation.Emulated,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseCardComponent
-  implements OnInit, AfterViewInit, AfterContentInit, OnDestroy, OnChanges
+  implements
+    OnInit,
+    AfterViewInit,
+    AfterContentInit,
+    OnDestroy,
+    OnChanges,
+    AfterContentChecked
 {
   @Input({
     required: true,
@@ -110,6 +116,14 @@ export class CourseCardComponent
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log('ngOnChanges', changes);
+  }
+
+  ngAfterContentChecked(): void {
+    console.log('ngAfterContentChecked');
+    this.course.longDescription = 'ngAfterContentChecked';
+        this.course.iconUrl = '';
+    this.course.description = 'ngAfterContentChecked';
+    this.course.category = 'ADVANCED';
   }
 
   isImageVisible() {

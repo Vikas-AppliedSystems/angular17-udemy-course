@@ -11,8 +11,7 @@
   <button type="button" (click)="onEditButtonClick()">Edit Button</button>
 </div>
 
-@for (course of courses; track course.id; let idx = $index) {
-  @if (idx == 0) {
+@for (course of courses; track course.id; let idx = $index) { @if (idx == 0) {
 <div class="courses salmon-theme">
   <!-- @if(!course.iconUrl) { -->
   <ng-template #blankImage let-courseName="description">
@@ -35,12 +34,10 @@
     type="beginner"
     typeAsInput="Advanced"
   >
-    <course-image [src]="course.iconUrl"></course-image>
-
     <div class="course-description" (dblclick)="highlightDirectiveRef.toggle()">
       {{ course.longDescription }}
     </div>
+    <course-image [src]="course.iconUrl"></course-image>
   </course-card>
 </div>
-  }
-}
+} }

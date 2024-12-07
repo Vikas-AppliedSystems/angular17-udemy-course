@@ -11,5 +11,7 @@ export class CourseImageComponent {
   @Input('src')
   imageUrl?: string;
   constructor() {}
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.imageUrl);
+  }
 }
