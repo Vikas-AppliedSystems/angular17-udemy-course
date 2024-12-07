@@ -11,7 +11,7 @@ import {
   OnInit,
   Output,
   QueryList,
-  Self,
+  SkipSelf,
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
@@ -70,7 +70,7 @@ export class CourseCardComponent
   @Output('courseChanged')
   courseChangedEmitter = new EventEmitter<Course>();
 
-  constructor(@Self() private coursesService: CoursesService) {}
+  constructor(@SkipSelf() private coursesService: CoursesService) {}
 
   ngAfterViewInit() {
     // console.log('ngAfterViewInit', this.viewChildImage);
