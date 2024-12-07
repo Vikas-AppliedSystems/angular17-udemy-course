@@ -10,6 +10,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   QueryList,
@@ -31,7 +32,7 @@ import { CoursesService } from '../services/courses.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseCardComponent
-  implements OnInit, AfterViewInit, AfterContentInit
+  implements OnInit, AfterViewInit, AfterContentInit, OnDestroy
 {
   @Input({
     required: true,
@@ -79,7 +80,8 @@ export class CourseCardComponent
     @Attribute('type') private type: string
   ) {
     console.log('type:', this.type);
-    console.log('typeAsInput:', this.typeAsInput);
+    // console.log('typeAsInput:', this.typeAsInput);
+    console.log(this.course);
   }
 
   ngAfterViewInit() {
@@ -96,7 +98,12 @@ export class CourseCardComponent
 
   ngOnInit() {
     console.log('ngOnInit', this.coursesService);
-    console.log('id', this.coursesService.id);
+    // console.log('id', this.coursesService.id);
+    console.log('course', this.course);
+  }
+
+  ngOnDestroy(): void {
+    console.log('ngOnDestroy');
   }
 
   isImageVisible() {

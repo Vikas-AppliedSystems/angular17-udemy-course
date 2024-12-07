@@ -14,6 +14,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { Observable } from 'rxjs';
+import { COURSES } from '../db-data';
 import { AppConfig, CONFIG_TOKEN } from './config';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CourseImageComponent } from './course-image/course-image.component';
@@ -37,7 +38,7 @@ import { CoursesService } from './services/courses.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, AfterViewInit, DoCheck {
-  courses: Course[];
+  courses: Course[] | undefined = COURSES;
   courses$: Observable<Course[]>;
   coursesLoaded: boolean = false;
 
@@ -72,10 +73,10 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   }
 
   ngOnInit(): void {
-    this.coursesService.getCourses().subscribe((courses) => {
+    /* this.coursesService.getCourses().subscribe((courses) => {
       this.courses = courses;
       this.coursesLoaded = true;
-    });
+    }); */
   }
   ngDoCheck() {
     console.log('ngDoCheck', this.courses, this.coursesLoaded);
@@ -89,10 +90,6 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   }
 
   onEditButtonClick(): void {
-    // this.courses[0].description = "New Description";
-    const course = this.courses[0];
-    const newCourse = { ...course };
-    newCourse.description = 'New Description';
-    this.courses[0] = newCourse;
+    this.courses = [];
   }
 }

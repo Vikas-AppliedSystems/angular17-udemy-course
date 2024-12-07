@@ -11,7 +11,8 @@
   <button type="button" (click)="onEditButtonClick()">Edit Button</button>
 </div>
 
-@for (course of courses; track course.id;) {
+@for (course of courses; track course.id; let idx = $index) {
+  @if (idx == 0) {
 <div class="courses salmon-theme">
   <!-- @if(!course.iconUrl) { -->
   <ng-template #blankImage let-courseName="description">
@@ -41,4 +42,5 @@
     </div>
   </course-card>
 </div>
+  }
 }
