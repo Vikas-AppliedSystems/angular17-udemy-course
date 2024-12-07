@@ -54,13 +54,13 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
     @Inject(CONFIG_TOKEN) private config: AppConfig,
     private cd: ChangeDetectorRef
   ) {
-    console.log('AppComponent config:', this.config);
-    console.log('id', this.coursesService.id);
+    localStorage.setItem('AppComponent config:', JSON.stringify(this.config));
+    localStorage.setItem('id', this.coursesService.id.toString());
   }
 
   ngAfterViewInit() {
     // console.log(this.cards.first);
-    console.log(this.highlightedDirective);
+    // console.log(this.highlightedDirective);
   }
 
   onCourseSelected(course: Course) {
@@ -78,7 +78,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
     }); */
   }
   ngDoCheck() {
-    console.log('ngDoCheck', this.courses, this.coursesLoaded);
+    // console.log('ngDoCheck', this.courses, this.coursesLoaded);
     if (this.coursesLoaded) {
       this.cd.markForCheck(); // TODO: need to check why this is not working properly for onPUsh change detection.
     }

@@ -8,6 +8,7 @@ import {
   Component,
   ContentChild,
   ContentChildren,
+  DoCheck,
   ElementRef,
   EventEmitter,
   Input,
@@ -42,7 +43,10 @@ export class CourseCardComponent
     OnDestroy,
     OnChanges,
     AfterContentChecked,
-    AfterViewChecked
+    AfterViewChecked,
+    AfterContentInit,
+    AfterViewInit,
+    DoCheck
 {
   @Input({
     required: true,
@@ -89,9 +93,9 @@ export class CourseCardComponent
     private coursesService: CoursesService,
     @Attribute('type') private type: string
   ) {
-    console.log('type:', this.type);
+    localStorage.setItem('type:', this.type);
     // console.log('typeAsInput:', this.typeAsInput);
-    console.log('constructor', this.course);
+    // console.log('constructor', this.course);
   }
 
   ngAfterViewInit() {
@@ -102,14 +106,18 @@ export class CourseCardComponent
     // console.log('ngAfterViewInit', this.contentChildCourseImageComponent);
     // console.log('ngAfterViewInit', this.contentChilderCourseImageComponent);
     // console.log('ngAfterViewInit', this.images);
+    console.log('ngAfterViewInit');
   }
 
-  ngAfterContentInit() {}
+  ngAfterContentInit() {
+    console.log('ngAfterContentInit');
+  }
 
   ngOnInit() {
-    console.log('ngOnInit', this.coursesService);
+    localStorage.setItem('ngOnInit', JSON.stringify(this.coursesService));
     // console.log('id', this.coursesService.id);
-    console.log(' ngOnInit course', this.course);
+    // console.log(' ngOnInit course', this.course);
+    console.log('ngOnInit');
   }
 
   ngOnDestroy(): void {
@@ -129,7 +137,11 @@ export class CourseCardComponent
 
   ngAfterViewChecked(): void {
     console.log('ngAfterViewChecked');
-    this.course.description = 'ngAfterViewChecked';
+    // this.course.description = 'ngAfterViewChecked';
+  }
+
+  ngDoCheck(): void {
+    console.log('ngDoCheck');
   }
 
   isImageVisible() {
