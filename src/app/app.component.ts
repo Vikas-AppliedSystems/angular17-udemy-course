@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   DoCheck,
@@ -17,11 +16,11 @@ import { Observable } from 'rxjs';
 import { COURSES } from '../db-data';
 import { AppConfig, CONFIG_TOKEN } from './config';
 import { CourseCardComponent } from './course-card/course-card.component';
+import { CourseImageComponent } from './course-image/course-image.component';
 import { HighlightedDirective } from './directives/highlighted.directive';
 import { NgxUnlessDirective } from './directives/ngx-unless.directive';
 import { Course } from './model/course';
 import { CoursesService } from './services/courses.service';
-import { CourseImageComponent } from './course-image/course-image.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -35,7 +34,7 @@ import { CourseImageComponent } from './course-image/course-image.component';
     NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
   ],
   providers: [HttpClient],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   courses: Course[] = COURSES;

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   AfterContentChecked,
   AfterContentInit,
+  AfterViewChecked,
   AfterViewInit,
   Attribute,
   Component,
@@ -40,7 +41,8 @@ export class CourseCardComponent
     AfterContentInit,
     OnDestroy,
     OnChanges,
-    AfterContentChecked
+    AfterContentChecked,
+    AfterViewChecked
 {
   @Input({
     required: true,
@@ -120,10 +122,14 @@ export class CourseCardComponent
 
   ngAfterContentChecked(): void {
     console.log('ngAfterContentChecked');
-    this.course.longDescription = 'ngAfterContentChecked';
-        this.course.iconUrl = '';
-    this.course.description = 'ngAfterContentChecked';
+    // this.course.iconUrl = '';
     this.course.category = 'ADVANCED';
+    // this.course.longDescription = 'ngAfterContentChecked';
+  }
+
+  ngAfterViewChecked(): void {
+    console.log('ngAfterViewChecked');
+    this.course.description = 'ngAfterViewChecked';
   }
 
   isImageVisible() {
