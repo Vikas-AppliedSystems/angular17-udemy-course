@@ -73,4 +73,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   onCourseChanged(course: Course) {
     this.coursesService.updateCourse(course);
   }
+
+  onEditButtonClick(): void {
+    this.courses[0].description = "New Description";
+  }
 }

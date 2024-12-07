@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   AfterContentInit,
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ContentChild,
   ContentChildren,
@@ -26,6 +27,7 @@ import { CoursesService } from '../services/courses.service';
   standalone: true,
   imports: [CommonModule],
   encapsulation: ViewEncapsulation.Emulated,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseCardComponent
   implements OnInit, AfterViewInit, AfterContentInit

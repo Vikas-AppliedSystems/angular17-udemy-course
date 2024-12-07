@@ -8,6 +8,7 @@
 <div class="demo">
   <!-- angular has lot of inbuilt pipes some are number, titleCase, upperCase, slice, keyvalue etc... -->
   Today's Date:- {{ todaysDate | date : "MMM/dd/YYYY" }}
+  <button type="button" (click)="onEditButtonClick()">Edit Button</button>
 </div>
 
 @for (course of courses; track course.id;) {
