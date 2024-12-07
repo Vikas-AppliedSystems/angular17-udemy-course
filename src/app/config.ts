@@ -5,9 +5,12 @@ export interface AppConfig {
   courseCacheSize: number;
 }
 
-export const appConfig: AppConfig = {
+export const APP_CONFIG: AppConfig = {
   apiUrl: 'http://localhost:9000',
   courseCacheSize: 10,
 };
 
-export const CONFIG_TOKEN = new InjectionToken<AppConfig>('CONFIG_TOKEN');
+export const CONFIG_TOKEN = new InjectionToken<AppConfig>('CONFIG_TOKEN', {
+  providedIn: 'root',
+  factory: () => APP_CONFIG,
+});

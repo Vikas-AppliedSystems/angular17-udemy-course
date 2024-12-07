@@ -11,7 +11,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AppConfig, appConfig, CONFIG_TOKEN } from './config';
+import { AppConfig, CONFIG_TOKEN } from './config';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CourseImageComponent } from './course-image/course-image.component';
 import { HighlightedDirective } from './directives/highlighted.directive';
@@ -30,10 +30,7 @@ import { CoursesService } from './services/courses.service';
     HighlightedDirective,
     NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
   ],
-  providers: [
-    HttpClient,
-    { provide: CONFIG_TOKEN, useFactory: () => appConfig },
-  ],
+  providers: [HttpClient],
 })
 export class AppComponent implements OnInit, AfterViewInit {
   // courses: Course[] = [];
