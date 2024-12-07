@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Course } from '../model/course';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root' // tree shackable dependency declaration.
+})
 export class CoursesService {
   constructor(private http: HttpClient) {}
 

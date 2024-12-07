@@ -28,7 +28,7 @@ import { CoursesService } from './services/courses.service';
     HighlightedDirective,
     NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
   ],
-  providers: [HttpClient, CoursesService],
+  providers: [HttpClient],
 })
 export class AppComponent implements OnInit, AfterViewInit {
   // courses: Course[] = [];
