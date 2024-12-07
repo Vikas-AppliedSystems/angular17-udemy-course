@@ -19,7 +19,6 @@ import { HighlightedDirective } from './directives/highlighted.directive';
 import { NgxUnlessDirective } from './directives/ngx-unless.directive';
 import { Course } from './model/course';
 import { CoursesService } from './services/courses.service';
-import { COURSES } from '../db-data';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -36,7 +35,7 @@ import { COURSES } from '../db-data';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  courses: Course[] = COURSES;
+  courses: Course[] = [];
   courses$: Observable<Course[]>;
 
   @ViewChildren(CourseCardComponent, { read: ElementRef })
@@ -69,7 +68,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.courses$ = this.coursesService.getCourses();
+    this.coursesService
+      .getCourses()
+      .subscribe((courses) => (this.courses = courses));
   }
 
   onCourseChanged(course: Course) {
@@ -79,8 +80,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   onEditButtonClick(): void {
     // this.courses[0].description = "New Description";
     const course = this.courses[0];
-    const newCourse = {...course};
-    newCourse.description = "New Description";
+    const newCourse = { ...course };
+    newCourse.description = 'New Description';
     this.courses[0] = newCourse;
   }
 }
