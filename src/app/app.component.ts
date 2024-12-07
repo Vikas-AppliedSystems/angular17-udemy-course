@@ -75,6 +75,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   onEditButtonClick(): void {
-    this.courses[0].description = "New Description";
+    // this.courses[0].description = "New Description";
+    const course = this.courses[0];
+    const newCourse = {...course};
+    newCourse.description = "New Description";
+    this.courses[0] = newCourse;
   }
 }
