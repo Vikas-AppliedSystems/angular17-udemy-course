@@ -9,6 +9,7 @@ import {
   EventEmitter,
   Input,
   OnInit,
+  Optional,
   Output,
   QueryList,
   TemplateRef,
@@ -68,7 +69,7 @@ export class CourseCardComponent
   @Output('courseChanged')
   courseChangedEmitter = new EventEmitter<Course>();
 
-  constructor(private coursesService: CoursesService) {}
+  constructor(@Optional() private coursesService: CoursesService) {}
 
   ngAfterViewInit() {
     // console.log('ngAfterViewInit', this.viewChildImage);

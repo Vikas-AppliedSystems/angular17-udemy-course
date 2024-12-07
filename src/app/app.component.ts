@@ -6,6 +6,7 @@ import {
   ElementRef,
   Inject,
   OnInit,
+  Optional,
   QueryList,
   ViewChild,
   ViewChildren,
@@ -45,7 +46,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   highlightedDirective: HighlightedDirective;
 
   constructor(
-    private coursesService: CoursesService,
+    @Optional() private coursesService: CoursesService,
     @Inject(CONFIG_TOKEN) private config: AppConfig
   ) {
     console.log('AppComponent config:', this.config);
