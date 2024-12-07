@@ -7,7 +7,6 @@ import {
   Inject,
   OnInit,
   QueryList,
-  Self,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
@@ -31,7 +30,7 @@ import { CoursesService } from './services/courses.service';
     HighlightedDirective,
     NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
   ],
-  providers: [HttpClient, CoursesService],
+  providers: [HttpClient],
 })
 export class AppComponent implements OnInit, AfterViewInit {
   // courses: Course[] = [];
@@ -46,7 +45,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   highlightedDirective: HighlightedDirective;
 
   constructor(
-    @Self() private coursesService: CoursesService,
+    private coursesService: CoursesService,
     @Inject(CONFIG_TOKEN) private config: AppConfig
   ) {
     console.log('AppComponent config:', this.config);
