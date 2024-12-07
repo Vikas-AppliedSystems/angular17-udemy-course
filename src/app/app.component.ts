@@ -4,19 +4,21 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Inject,
   OnInit,
   QueryList,
+  Self,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppConfig, CONFIG_TOKEN } from './config';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CourseImageComponent } from './course-image/course-image.component';
 import { HighlightedDirective } from './directives/highlighted.directive';
 import { NgxUnlessDirective } from './directives/ngx-unless.directive';
 import { Course } from './model/course';
 import { CoursesService } from './services/courses.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -29,7 +31,7 @@ import { CoursesService } from './services/courses.service';
     HighlightedDirective,
     NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
   ],
-  providers: [HttpClient],
+  providers: [HttpClient, CoursesService],
 })
 export class AppComponent implements OnInit, AfterViewInit {
   // courses: Course[] = [];
@@ -43,7 +45,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(CourseCardComponent, { read: HighlightedDirective })
   highlightedDirective: HighlightedDirective;
 
-  constructor(private coursesService: CoursesService) {}
+  constructor(
+    @Self() private coursesService: CoursesService,
+    @Inject(CONFIG_TOKEN) private config: AppConfig
+  ) {
+    console.log('AppComponent config:', this.config);
+    console.log('id', this.coursesService.id);
+  }
 
   ngAfterViewInit() {
     // console.log(this.cards.first);
