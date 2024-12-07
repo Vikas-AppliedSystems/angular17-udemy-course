@@ -4,12 +4,14 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Inject,
   OnInit,
   QueryList,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppConfig, appConfig, CONFIG_TOKEN } from './config';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CourseImageComponent } from './course-image/course-image.component';
 import { HighlightedDirective } from './directives/highlighted.directive';
@@ -28,7 +30,10 @@ import { CoursesService } from './services/courses.service';
     HighlightedDirective,
     NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
   ],
-  providers: [HttpClient],
+  providers: [
+    HttpClient,
+    { provide: CONFIG_TOKEN, useFactory: () => appConfig },
+  ],
 })
 export class AppComponent implements OnInit, AfterViewInit {
   // courses: Course[] = [];
@@ -42,7 +47,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(CourseCardComponent, { read: HighlightedDirective })
   highlightedDirective: HighlightedDirective;
 
-  constructor(private coursesService: CoursesService) {}
+  constructor(
+    private coursesService: CoursesService,
+    @Inject(CONFIG_TOKEN) private config: AppConfig
+  ) {
+    console.log('AppComponent config:', this.config);
+  }
 
   ngAfterViewInit() {
     // console.log(this.cards.first);
