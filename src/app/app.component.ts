@@ -92,8 +92,9 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
   onEditButtonClick(): void {
     // this.courses = [];
-    const course = this.courses[0];
-    const newCourse = { ...course, description: 'ngOnChanges' };
-    this.courses[0] = newCourse;
+    // const course = this.courses[0];
+    // const newCourse = { ...course, description: 'ngOnChanges' };
+    // this.courses[0] = newCourse;
+    this.courses[2].category = 'BEGINNER';
   }
 }
