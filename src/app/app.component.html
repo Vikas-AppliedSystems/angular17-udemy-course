@@ -8,7 +8,8 @@
 <div class="demo">
   <!-- angular has lot of inbuilt pipes some are number, titleCase, upperCase, slice, keyvalue etc... -->
   Today's Date:- {{ todaysDate | date : "MMM/dd/YYYY" }}
-  <button type="button" (click)="onEditButtonClick()">Edit Button</button>
+  <h4 i18n>Angular Course Deep Dive into Angular.</h4>
+  <button type="button" (click)="onEditButtonClick()" i18n>Edit Button</button>
 </div>
 
 @for (course of courses | filterByCategory: "ADVANCED"; track course.id; let idx
