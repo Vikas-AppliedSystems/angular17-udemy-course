@@ -22,6 +22,7 @@ import { NgxUnlessDirective } from './directives/ngx-unless.directive';
 import { Course } from './model/course';
 import { FilterByCategoryPipe } from './pipes/filter-by-category.pipe';
 import { CoursesService } from './services/courses.service';
+import { CourseTitleComponent } from './course-title/course-title.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -34,6 +35,7 @@ import { CoursesService } from './services/courses.service';
     HighlightedDirective,
     NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
     FilterByCategoryPipe,
+    CourseTitleComponent
   ],
   providers: [HttpClient],
   // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -54,7 +56,8 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   constructor(
     private coursesService: CoursesService,
     @Inject(CONFIG_TOKEN) private config: AppConfig,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private injector: Injector
   ) {
     localStorage.setItem('AppComponent config:', JSON.stringify(this.config));
     localStorage.setItem('id', this.coursesService.id.toString());
@@ -78,6 +81,9 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
       this.courses = courses;
       this.coursesLoaded = true;
     }); */
+
+    const htmlElement = createCustomElement(CourseTitleComponent, {injector: this.injector});
+    customElements.define('course-title', htmlElement);
   }
   ngDoCheck() {
     // console.log('ngDoCheck', this.courses, this.coursesLoaded);
