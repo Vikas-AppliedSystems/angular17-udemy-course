@@ -4,24 +4,29 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  CUSTOM_ELEMENTS_SCHEMA,
   DoCheck,
   ElementRef,
   Inject,
+  Injector,
   OnInit,
   QueryList,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
 import { Observable } from 'rxjs';
 import { COURSES } from '../db-data';
 import { AppConfig, CONFIG_TOKEN } from './config';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CourseImageComponent } from './course-image/course-image.component';
+import { CourseTitleComponent } from './course-title/course-title.component';
 import { HighlightedDirective } from './directives/highlighted.directive';
 import { NgxUnlessDirective } from './directives/ngx-unless.directive';
 import { Course } from './model/course';
 import { FilterByCategoryPipe } from './pipes/filter-by-category.pipe';
 import { CoursesService } from './services/courses.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -34,9 +39,11 @@ import { CoursesService } from './services/courses.service';
     HighlightedDirective,
     NgxUnlessDirective, // TODO: do r &d on how to make this work for standalone components.
     FilterByCategoryPipe,
+    CourseTitleComponent
   ],
   providers: [HttpClient],
   // changeDetection: ChangeDetectionStrategy.OnPush,
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   courses: Course[] = COURSES;
@@ -54,7 +61,8 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   constructor(
     private coursesService: CoursesService,
     @Inject(CONFIG_TOKEN) private config: AppConfig,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private injector: Injector
   ) {
     localStorage.setItem('AppComponent config:', JSON.stringify(this.config));
     localStorage.setItem('id', this.coursesService.id.toString());
@@ -78,6 +86,9 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
       this.courses = courses;
       this.coursesLoaded = true;
     }); */
+
+    const htmlElement = createCustomElement(CourseTitleComponent, {injector: this.injector});
+    customElements.define('course-title', htmlElement);
   }
   ngDoCheck() {
     // console.log('ngDoCheck', this.courses, this.coursesLoaded);

@@ -23,6 +23,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { CourseImageComponent } from '../course-image/course-image.component';
+import { CourseTitleComponent } from '../course-title/course-title.component';
 import { Course } from '../model/course';
 import { CoursesService } from '../services/courses.service';
 
@@ -31,7 +32,7 @@ import { CoursesService } from '../services/courses.service';
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CourseTitleComponent],
   encapsulation: ViewEncapsulation.Emulated,
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })

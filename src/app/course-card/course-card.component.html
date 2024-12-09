@@ -1,7 +1,8 @@
 <!-- ng class can be string, array or object -->
 <div class="course-card" *ngIf="course" #container [ngClass]="cardClasses()">
   <div class="course-title">
-    {{ cardIndex + " " + course.description }}
+    <!-- {{ cardIndex + " " + course.description }} -->
+      <app-course-title [title]="course.description"></app-course-title>
   </div>
 
   @if (course.id == 1) {
