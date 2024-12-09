@@ -4,25 +4,29 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  CUSTOM_ELEMENTS_SCHEMA,
   DoCheck,
   ElementRef,
   Inject,
+  Injector,
   OnInit,
   QueryList,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
 import { Observable } from 'rxjs';
 import { COURSES } from '../db-data';
 import { AppConfig, CONFIG_TOKEN } from './config';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CourseImageComponent } from './course-image/course-image.component';
+import { CourseTitleComponent } from './course-title/course-title.component';
 import { HighlightedDirective } from './directives/highlighted.directive';
 import { NgxUnlessDirective } from './directives/ngx-unless.directive';
 import { Course } from './model/course';
 import { FilterByCategoryPipe } from './pipes/filter-by-category.pipe';
 import { CoursesService } from './services/courses.service';
-import { CourseTitleComponent } from './course-title/course-title.component';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -39,6 +43,7 @@ import { CourseTitleComponent } from './course-title/course-title.component';
   ],
   providers: [HttpClient],
   // changeDetection: ChangeDetectionStrategy.OnPush,
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   courses: Course[] = COURSES;
