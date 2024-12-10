@@ -12,12 +12,17 @@
   <button type="button" (click)="onEditButtonClick()" i18n>Edit Button</button>
 </div>
 
-<div style="border: 5px solid red; min-height: 900px; margin: 10px;">
+<!-- <div style="border: 5px solid red; min-height: 900px; margin: 10px;">
 
 </div>
-<h5 #title >Trigger Text</h5>
+<h5 #title >Trigger Text</h5> -->
 
-@defer(on viewport(title); prefetch on idle) {
+<div class="demo-triggers">
+  <input type="text" id="trigger" />
+  <button >Trigger Change</button>
+</div>
+
+@defer(on interaction; prefetch on interaction) {
 @for (course of courses | filterByCategory: "ADVANCED"; track course.id; let idx
 = $index) {
 <!-- @if (idx == 0) { -->
