@@ -17,12 +17,17 @@
 </div>
 <h5 #title >Trigger Text</h5> -->
 
-<div class="demo-triggers">
+<!-- <div class="demo-triggers">
   <input type="text" id="trigger" placeHolder="prefetch trigger" #prefetchTrigger/>
   <button #display>Trigger Change</button>
+</div> -->
+
+<div style="border: 5px solid red; min-height: 200px; margin: 10px;">
+
+  <button type="button" #display> Display Trigger</button>
 </div>
 
-@defer(on interaction(display); prefetch on interaction(prefetchTrigger)) {
+@defer(on interaction(display); prefetch on hover) {
 @for (course of courses | filterByCategory: "ADVANCED"; track course.id; let idx
 = $index) {
 <!-- @if (idx == 0) { -->
