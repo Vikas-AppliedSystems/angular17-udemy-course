@@ -18,11 +18,11 @@
 <h5 #title >Trigger Text</h5> -->
 
 <div class="demo-triggers">
-  <input type="text" id="trigger" />
-  <button >Trigger Change</button>
+  <input type="text" id="trigger" #prefetchTrigger/>
+  <button #display>Trigger Change</button>
 </div>
 
-@defer(on interaction; prefetch on interaction) {
+@defer(on interaction(display); prefetch on interaction(prefetchTrigger)) {
 @for (course of courses | filterByCategory: "ADVANCED"; track course.id; let idx
 = $index) {
 <!-- @if (idx == 0) { -->
