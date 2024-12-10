@@ -11,7 +11,9 @@
   <h4 i18n>Angular Course Deep Dive into Angular.</h4>
   <button type="button" (click)="onEditButtonClick()" i18n>Edit Button</button>
 </div>
-@defer(on timer(15s); prefetch on timer(10s)) {
+
+<div style="border: 5px solid red; min-height: 900px; margin: 10px;"></div>
+@defer(on viewport; prefetch on idle) {
 @for (course of courses | filterByCategory: "ADVANCED"; track course.id; let idx
 = $index) {
 <!-- @if (idx == 0) { -->
