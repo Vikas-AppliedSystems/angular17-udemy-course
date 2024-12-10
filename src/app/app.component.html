@@ -11,7 +11,7 @@
   <h4 i18n>Angular Course Deep Dive into Angular.</h4>
   <button type="button" (click)="onEditButtonClick()" i18n>Edit Button</button>
 </div>
-
+@defer {
 @for (course of courses | filterByCategory: "ADVANCED"; track course.id; let idx
 = $index) {
 <!-- @if (idx == 0) { -->
@@ -44,4 +44,5 @@
   </course-card>
 </div>
 <!-- } -->
+}
 }
