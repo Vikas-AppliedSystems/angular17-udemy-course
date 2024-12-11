@@ -10,6 +10,8 @@
  <h5>Counter value is :  {{counter()}}</h5>
  <h5>Chapter Title:- {{chapter().title}}</h5>
  <h5>Chapters Name:- {{ chapters().join(", ")}}</h5>
+
+ <h5>Derived Counter:- {{ derivedCounter() }}</h5>
  <button type="button" (click)="increment()">Increment</button>
 </div>
 

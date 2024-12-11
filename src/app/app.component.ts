@@ -4,6 +4,7 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  computed,
   CUSTOM_ELEMENTS_SCHEMA,
   DoCheck,
   ElementRef,
@@ -72,6 +73,12 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
     'Be Bold',
     'Never Stop',
   ]);
+
+  derivedCounter = computed(() => {
+    const counter = this.counter();
+    return counter * 10;
+  });
+  
   constructor(
     private coursesService: CoursesService,
     @Inject(CONFIG_TOKEN) private config: AppConfig,
