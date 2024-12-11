@@ -22,12 +22,12 @@
   <button #display>Trigger Change</button>
 </div> -->
 
-<div style="border: 5px solid red; min-height: 200px; margin: 10px;" #prefetchTrigger>
-
-  <button type="button" #display> Display Trigger</button>
+<div style="border: 5px solid red; min-height: 200px; margin: 10px;">
+  <button type="button" (click)="onPrefetch()">Prefetch Trigger</button>
+  <button type="button" (click)="onDisplay()"> Display Trigger</button>
 </div>
 
-@defer(on interaction(display); prefetch on hover(prefetchTrigger)) {
+@defer(when display; prefetch when prefetch) {
 @for (course of courses | filterByCategory: "ADVANCED"; track course.id; let idx
 = $index) {
 <!-- @if (idx == 0) { -->
