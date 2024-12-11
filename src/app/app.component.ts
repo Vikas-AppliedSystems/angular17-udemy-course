@@ -58,6 +58,8 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   @ViewChild(CourseCardComponent, { read: HighlightedDirective })
   highlightedDirective: HighlightedDirective;
 
+  prefetch:boolean = false;
+  display:boolean = false;
   constructor(
     private coursesService: CoursesService,
     @Inject(CONFIG_TOKEN) private config: AppConfig,
@@ -107,5 +109,13 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
     // const newCourse = { ...course, description: 'ngOnChanges' };
     // this.courses[0] = newCourse;
     this.courses[2].category = 'BEGINNER';
+  }
+
+  onPrefetch() {
+    this.prefetch = true;
+  }
+
+  onDisplay() {
+    this.display = true;
   }
 }
