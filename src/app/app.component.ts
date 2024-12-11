@@ -63,6 +63,15 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   display:boolean = false;
 
   counter = signal(0);
+  chapter = signal({
+    id: 1,
+    title: "Be cool"
+  });
+
+  chapters = signal([
+    'Be Bold',
+    'Never Stop',
+  ]);
   constructor(
     private coursesService: CoursesService,
     @Inject(CONFIG_TOKEN) private config: AppConfig,
@@ -128,5 +137,14 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   increment() {
     // this.counter.set(this.counter()+1);
     this.counter.update(value => value + 1);
+
+    // Wrong way to update signals never mutate signal values directly. because
+    // the mutated values will not show in case of onpush change detection.
+/*     this.chapter().title = "Hello World!";
+    this.chapters().push("New Chapter"); */
+
+    // Right way of mutating signal values
+    this.chapter.set({id: 1, title: "Hello World!"});
+    this.chapters.update(chapters => [...chapters, "New Chapter " + this.counter()])
   }
 }

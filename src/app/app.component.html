@@ -8,6 +8,8 @@
 <div class="demo">
   <!-- angular has lot of inbuilt pipes some are number, titleCase, upperCase, slice, keyvalue etc... -->
  <h5>Counter value is :  {{counter()}}</h5>
+ <h5>Chapter Title:- {{chapter().title}}</h5>
+ <h5>Chapters Name:- {{ chapters().join(", ")}}</h5>
  <button type="button" (click)="increment()">Increment</button>
 </div>
 
