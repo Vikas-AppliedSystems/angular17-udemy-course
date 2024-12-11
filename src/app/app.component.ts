@@ -11,6 +11,7 @@ import {
   Injector,
   OnInit,
   QueryList,
+  signal,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
@@ -60,6 +61,8 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
   prefetch:boolean = false;
   display:boolean = false;
+
+  counter = signal(0);
   constructor(
     private coursesService: CoursesService,
     @Inject(CONFIG_TOKEN) private config: AppConfig,
@@ -117,5 +120,9 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
   onDisplay() {
     this.display = true;
+  }
+
+  increment() {
+    this.counter.set(this.counter()+1);
   }
 }

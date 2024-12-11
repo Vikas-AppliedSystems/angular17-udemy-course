@@ -7,6 +7,12 @@
 
 <div class="demo">
   <!-- angular has lot of inbuilt pipes some are number, titleCase, upperCase, slice, keyvalue etc... -->
+ <h5>Counter value is :  {{counter()}}</h5>
+ <button type="button" (click)="increment()">Increment</button>
+</div>
+
+<div class="demo">
+  <!-- angular has lot of inbuilt pipes some are number, titleCase, upperCase, slice, keyvalue etc... -->
   Today's Date:- {{ todaysDate | date : "MMM/dd/YYYY" }}
   <h4 i18n>Angular Course Deep Dive into Angular.</h4>
   <button type="button" (click)="onEditButtonClick()" i18n>Edit Button</button>
