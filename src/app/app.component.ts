@@ -71,6 +71,9 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   ) {
     localStorage.setItem('AppComponent config:', JSON.stringify(this.config));
     localStorage.setItem('id', this.coursesService.id.toString());
+
+    const readOnlySignalCounter = this.counter.asReadonly();
+    console.log(readOnlySignalCounter());
   }
 
   ngAfterViewInit() {
@@ -123,6 +126,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   }
 
   increment() {
-    this.counter.set(this.counter()+1);
+    // this.counter.set(this.counter()+1);
+    this.counter.update(value => value + 1);
   }
 }
