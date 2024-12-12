@@ -9,19 +9,18 @@ import {
   ContentChild,
   ContentChildren,
   DoCheck,
+  effect,
   ElementRef,
   EventEmitter,
   input,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
-  SimpleChanges,
   TemplateRef,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { CourseImageComponent } from '../course-image/course-image.component';
 import { CourseTitleComponent } from '../course-title/course-title.component';
@@ -43,7 +42,6 @@ export class CourseCardComponent
     AfterViewInit,
     AfterContentInit,
     OnDestroy,
-    OnChanges,
     AfterContentChecked,
     AfterViewChecked,
     AfterContentInit,
@@ -99,6 +97,9 @@ export class CourseCardComponent
     localStorage.setItem('type:', this.type);
     // console.log('typeAsInput:', this.typeAsInput);
     // console.log('constructor', this.course);
+    effect(() => {
+      console.log('new course value:', this.course());
+    });
   }
 
   ngAfterViewInit() {
@@ -129,11 +130,6 @@ export class CourseCardComponent
   ngOnDestroy(): void {
     // console.log('ngOnDestroy');
     localStorage.setItem('ngOnDestroy', 'true');
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // console.log('ngOnChanges', changes);
-    localStorage.setItem('ngOnChanges', changes.toString());
   }
 
   ngAfterContentChecked(): void {
