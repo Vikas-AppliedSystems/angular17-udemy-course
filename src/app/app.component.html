@@ -7,12 +7,15 @@
 
 <div class="demo">
   <!-- angular has lot of inbuilt pipes some are number, titleCase, upperCase, slice, keyvalue etc... -->
- <h5>Counter value is :  {{counter()}}</h5>
- <h5>Chapter Title:- {{chapter().title}}</h5>
- <h5>Chapters Name:- {{ chapters().join(", ")}}</h5>
+ <h6>Counter value is :  {{counter()}}</h6>
+ <h6>Chapter Title:- {{chapter().title}}</h6>
+ <h6>Chapters Name:- {{ chapters().join(", ")}}</h6>
 
- <h5>Derived Counter:- {{ derivedCounter() }}</h5>
+ <h6>Derived Counter:- {{ derivedCounter() }}</h6>
+ <h6>Multiplier:- {{ multiplier }}</h6>
+
  <button type="button" (click)="increment()">Increment</button>
+ <button type="button" (click)="incrementMultiplier()">Increment Multiplier</button>
 </div>
 
 <div class="demo">

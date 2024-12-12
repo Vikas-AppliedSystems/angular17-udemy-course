@@ -75,9 +75,16 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   ]);
 
   derivedCounter = computed(() => {
-    const counter = this.counter();
-    return counter * 10;
+    if(this.multiplier >= 10)
+    {
+      const counter = this.counter();
+      return counter * 10;
+    } else {
+      return 0;
+    }
   });
+
+  multiplier: number = 0;
   
   constructor(
     private coursesService: CoursesService,
@@ -153,5 +160,9 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
     // Right way of mutating signal values
     this.chapter.set({id: 1, title: "Hello World!"});
     this.chapters.update(chapters => [...chapters, "New Chapter " + this.counter()])
+  }
+
+  incrementMultiplier() {
+    this.multiplier++;
   }
 }
