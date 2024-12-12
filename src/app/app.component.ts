@@ -75,9 +75,9 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   ]);
 
   derivedCounter = computed(() => {
+    const counter = this.counter();
     if(this.multiplier >= 10)
     {
-      const counter = this.counter();
       return counter * 10;
     } else {
       return 0;
