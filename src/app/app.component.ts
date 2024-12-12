@@ -8,6 +8,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   DoCheck,
   effect,
+  EffectRef,
   ElementRef,
   Inject,
   Injector,
@@ -86,7 +87,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   });
 
   multiplier: number = 0;
-  
+  effectRef: EffectRef;
   constructor(
     private coursesService: CoursesService,
     @Inject(CONFIG_TOKEN) private config: AppConfig,
@@ -99,11 +100,15 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
     const readOnlySignalCounter = this.counter.asReadonly();
     console.log(readOnlySignalCounter());
 
-    effect(() => {
+    this.effectRef = effect((onCleanUpOrDestroy) => {
+
+      onCleanUpOrDestroy(() => console.log("onCleanUpOrDestroy clean up or destroy occured"));
       const counter = this.counter();
       const derivedCounter = this.derivedCounter();
 
       console.log(`counter: ${counter} derived counter: ${derivedCounter}`);
+    }, {
+      manualCleanup: true,
     })
   }
 
@@ -172,5 +177,9 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
   incrementMultiplier() {
     this.multiplier++;
+  }
+
+  cleanUpEffect(): void {
+    this.effectRef.destroy();
   }
 }
