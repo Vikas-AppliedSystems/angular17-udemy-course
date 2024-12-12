@@ -11,6 +11,7 @@ import {
   DoCheck,
   ElementRef,
   EventEmitter,
+  input,
   Input,
   OnChanges,
   OnDestroy,
@@ -49,10 +50,11 @@ export class CourseCardComponent
     AfterViewInit,
     DoCheck
 {
-  @Input({
+/*   @Input({
     required: true,
   })
-  course: Course;
+  course: Course; */
+  course = input<Course>();
 
   @Input()
   cardIndex: number;
@@ -107,54 +109,62 @@ export class CourseCardComponent
     // console.log('ngAfterViewInit', this.contentChildCourseImageComponent);
     // console.log('ngAfterViewInit', this.contentChilderCourseImageComponent);
     // console.log('ngAfterViewInit', this.images);
-    console.log('ngAfterViewInit');
+    // console.log('ngAfterViewInit');
+    localStorage.setItem('ngAfterViewInit', 'true');
   }
 
   ngAfterContentInit() {
-    console.log('ngAfterContentInit');
+    // console.log('ngAfterContentInit');
+    localStorage.setItem('ngAfterContentInit', 'true');
   }
 
   ngOnInit() {
     localStorage.setItem('ngOnInit', JSON.stringify(this.coursesService));
     // console.log('id', this.coursesService.id);
     // console.log(' ngOnInit course', this.course);
-    console.log('ngOnInit');
+    // console.log('ngOnInit');
+    localStorage.setItem('ngOnInit', 'true');
   }
 
   ngOnDestroy(): void {
-    console.log('ngOnDestroy');
+    // console.log('ngOnDestroy');
+    localStorage.setItem('ngOnDestroy', 'true');
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('ngOnChanges', changes);
+    // console.log('ngOnChanges', changes);
+    localStorage.setItem('ngOnChanges', changes.toString());
   }
 
   ngAfterContentChecked(): void {
-    console.log('ngAfterContentChecked');
+    // console.log('ngAfterContentChecked');
+    localStorage.setItem('ngAfterContentChecked', 'true');
     // this.course.iconUrl = '';
     // this.course.category = 'ADVANCED';
     // this.course.longDescription = 'ngAfterContentChecked';
   }
 
   ngAfterViewChecked(): void {
-    console.log('ngAfterViewChecked');
+    // console.log('ngAfterViewChecked');
+    localStorage.setItem('ngAfterViewChecked', 'true');
     // this.course.description = 'ngAfterViewChecked';
   }
 
   ngDoCheck(): void {
-    console.log('ngDoCheck');
+    // console.log('ngDoCheck');
+    localStorage.setItem('ngDoCheck', 'true');
   }
 
   isImageVisible() {
-    return this.course && this.course.iconUrl;
+    return this.course && this.course()?.iconUrl;
   }
 
   onCourseViewed() {
-    this.courseEmitter.emit(this.course);
+    this.courseEmitter.emit(this.course());
   }
 
   cardClasses() {
-    if (this.course.category == 'BEGINNER') {
+    if (this.course()?.category == 'BEGINNER') {
       return 'beginner';
     }
     return ''; // Fix: Add this line to handle the case when category is not 'BEGINNER'
@@ -162,15 +172,21 @@ export class CourseCardComponent
 
   cardStyles() {
     return {
-      'background-image': 'url(' + this.course.iconUrl + ')',
+      'background-image': 'url(' + this.course()?.iconUrl + ')',
     };
   }
 
   onSaveClicked(description: string) {
-    this.courseChangedEmitter.emit({ ...this.course, description });
+    const course = this.course()
+    if(course) {
+    this.courseChangedEmitter.emit({ ...course, description });
+    }
   }
 
   onTitleChange(newTitle: string) {
-    this.course.description = newTitle;
+    const course = this.course();
+    if (course) {
+      course.description = newTitle;
+    }
   }
 }
