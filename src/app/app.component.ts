@@ -7,6 +7,7 @@ import {
   computed,
   CUSTOM_ELEMENTS_SCHEMA,
   DoCheck,
+  effect,
   ElementRef,
   Inject,
   Injector,
@@ -97,6 +98,13 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
     const readOnlySignalCounter = this.counter.asReadonly();
     console.log(readOnlySignalCounter());
+
+    effect(() => {
+      const counter = this.counter();
+      const derivedCounter = this.derivedCounter();
+
+      console.log(`counter: ${counter} derived counter: ${derivedCounter}`);
+    })
   }
 
   ngAfterViewInit() {
