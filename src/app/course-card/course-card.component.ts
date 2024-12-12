@@ -52,7 +52,9 @@ export class CourseCardComponent
     required: true,
   })
   course: Course; */
-  course = input.required<Course>();
+  course = input<Course>({} as Course, {
+    alias: 'tutorial',
+  });
 
   @Input()
   cardIndex: number;

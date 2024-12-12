@@ -60,6 +60,7 @@
     (toggleHighlight)="onToggle($event)"
     #highlightDirectiveRef="hl"
     (courseSelected)="onCourseSelected($event)"
+    [tutorial]="course"
     [cardIndex]="$index"
     [noImageTpl]="blankImage"
     (courseChanged)="onCourseChanged($event)"
