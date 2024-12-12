@@ -2,14 +2,14 @@
 <div class="course-card" *ngIf="course" #container [ngClass]="cardClasses()">
   <div class="course-title">
     <!-- {{ cardIndex + " " + course.description }} -->
-      <app-course-title [title]="course()?.description"></app-course-title>
+      <app-course-title [title]="course().description"></app-course-title>
   </div>
 
-  @if (course()?.id == 1) {
-  <h1>This is a course with id {{ course()?.id }}.</h1>
+  @if (course().id == 1) {
+  <h1>This is a course with id {{ course().id }}.</h1>
   }
 
-  <ng-content select="course-image" *ngIf="course()?.iconUrl"></ng-content>
+  <ng-content select="course-image" *ngIf="course().iconUrl"></ng-content>
   <!-- <ng-content
     select="course-image"
     *ngIf="course.iconUrl; else noImage"
@@ -31,7 +31,7 @@
     Edit Title:
     <input
       #courseTitle
-      [value]="course()?.description"
+      [value]="course().description"
       (keyup)="onTitleChange(courseTitle.value)"
     />
   </div>
@@ -42,7 +42,7 @@
   <ng-content></ng-content>
 
   <div class="course-category">
-    @switch (course()?.category) { @case ('BEGINNER') {
+    @switch (course().category) { @case ('BEGINNER') {
     <div class="category">Beginner</div>
     } @case ('INTERMEDIATE') {
     <div class="category">Intermediate</div>

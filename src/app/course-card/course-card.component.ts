@@ -52,7 +52,7 @@ export class CourseCardComponent
     required: true,
   })
   course: Course; */
-  course = input<Course>();
+  course = input.required<Course>();
 
   @Input()
   cardIndex: number;
