@@ -9,18 +9,18 @@ import {
   ContentChild,
   ContentChildren,
   DoCheck,
+  effect,
   ElementRef,
   EventEmitter,
+  input,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
-  SimpleChanges,
   TemplateRef,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { CourseImageComponent } from '../course-image/course-image.component';
 import { CourseTitleComponent } from '../course-title/course-title.component';
@@ -42,17 +42,19 @@ export class CourseCardComponent
     AfterViewInit,
     AfterContentInit,
     OnDestroy,
-    OnChanges,
     AfterContentChecked,
     AfterViewChecked,
     AfterContentInit,
     AfterViewInit,
     DoCheck
 {
-  @Input({
+/*   @Input({
     required: true,
   })
-  course: Course;
+  course: Course; */
+  course = input<Course>({} as Course, {
+    alias: 'tutorial',
+  });
 
   @Input()
   cardIndex: number;
@@ -97,6 +99,9 @@ export class CourseCardComponent
     localStorage.setItem('type:', this.type);
     // console.log('typeAsInput:', this.typeAsInput);
     // console.log('constructor', this.course);
+    effect(() => {
+      console.log('new course value:', this.course());
+    });
   }
 
   ngAfterViewInit() {
@@ -107,54 +112,57 @@ export class CourseCardComponent
     // console.log('ngAfterViewInit', this.contentChildCourseImageComponent);
     // console.log('ngAfterViewInit', this.contentChilderCourseImageComponent);
     // console.log('ngAfterViewInit', this.images);
-    console.log('ngAfterViewInit');
+    // console.log('ngAfterViewInit');
+    localStorage.setItem('ngAfterViewInit', 'true');
   }
 
   ngAfterContentInit() {
-    console.log('ngAfterContentInit');
+    // console.log('ngAfterContentInit');
+    localStorage.setItem('ngAfterContentInit', 'true');
   }
 
   ngOnInit() {
     localStorage.setItem('ngOnInit', JSON.stringify(this.coursesService));
     // console.log('id', this.coursesService.id);
     // console.log(' ngOnInit course', this.course);
-    console.log('ngOnInit');
+    // console.log('ngOnInit');
+    localStorage.setItem('ngOnInit', 'true');
   }
 
   ngOnDestroy(): void {
-    console.log('ngOnDestroy');
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('ngOnChanges', changes);
+    // console.log('ngOnDestroy');
+    localStorage.setItem('ngOnDestroy', 'true');
   }
 
   ngAfterContentChecked(): void {
-    console.log('ngAfterContentChecked');
+    // console.log('ngAfterContentChecked');
+    localStorage.setItem('ngAfterContentChecked', 'true');
     // this.course.iconUrl = '';
     // this.course.category = 'ADVANCED';
     // this.course.longDescription = 'ngAfterContentChecked';
   }
 
   ngAfterViewChecked(): void {
-    console.log('ngAfterViewChecked');
+    // console.log('ngAfterViewChecked');
+    localStorage.setItem('ngAfterViewChecked', 'true');
     // this.course.description = 'ngAfterViewChecked';
   }
 
   ngDoCheck(): void {
-    console.log('ngDoCheck');
+    // console.log('ngDoCheck');
+    localStorage.setItem('ngDoCheck', 'true');
   }
 
   isImageVisible() {
-    return this.course && this.course.iconUrl;
+    return this.course && this.course()?.iconUrl;
   }
 
   onCourseViewed() {
-    this.courseEmitter.emit(this.course);
+    this.courseEmitter.emit(this.course());
   }
 
   cardClasses() {
-    if (this.course.category == 'BEGINNER') {
+    if (this.course()?.category == 'BEGINNER') {
       return 'beginner';
     }
     return ''; // Fix: Add this line to handle the case when category is not 'BEGINNER'
@@ -162,15 +170,21 @@ export class CourseCardComponent
 
   cardStyles() {
     return {
-      'background-image': 'url(' + this.course.iconUrl + ')',
+      'background-image': 'url(' + this.course()?.iconUrl + ')',
     };
   }
 
   onSaveClicked(description: string) {
-    this.courseChangedEmitter.emit({ ...this.course, description });
+    const course = this.course()
+    if(course) {
+    this.courseChangedEmitter.emit({ ...course, description });
+    }
   }
 
   onTitleChange(newTitle: string) {
-    this.course.description = newTitle;
+    const course = this.course();
+    if (course) {
+      course.description = newTitle;
+    }
   }
 }

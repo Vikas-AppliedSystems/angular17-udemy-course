@@ -7,6 +7,20 @@
 
 <div class="demo">
   <!-- angular has lot of inbuilt pipes some are number, titleCase, upperCase, slice, keyvalue etc... -->
+ <h6>Counter value is :  {{counterService.counter()}}</h6>
+ <h6>Chapter Title:- {{chapter().title}}</h6>
+ <h6>Chapters Name:- {{ chapters().join(", ")}}</h6>
+
+ <h6>Derived Counter:- {{ derivedCounter() }}</h6>
+ <h6>Multiplier:- {{ multiplier }}</h6>
+
+ <button type="button" (click)="increment()">Increment</button>
+ <button type="button" (click)="incrementMultiplier()">Increment Multiplier</button>
+ <button type="button" (click)="cleanUpEffect()">Clean up Effect</button>
+</div>
+
+<div class="demo">
+  <!-- angular has lot of inbuilt pipes some are number, titleCase, upperCase, slice, keyvalue etc... -->
   Today's Date:- {{ todaysDate | date : "MMM/dd/YYYY" }}
   <h4 i18n>Angular Course Deep Dive into Angular.</h4>
   <button type="button" (click)="onEditButtonClick()" i18n>Edit Button</button>
@@ -46,7 +60,7 @@
     (toggleHighlight)="onToggle($event)"
     #highlightDirectiveRef="hl"
     (courseSelected)="onCourseSelected($event)"
-    [course]="course"
+    [tutorial]="course"
     [cardIndex]="$index"
     [noImageTpl]="blankImage"
     (courseChanged)="onCourseChanged($event)"

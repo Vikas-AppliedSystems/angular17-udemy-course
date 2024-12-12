@@ -4,13 +4,17 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  computed,
   CUSTOM_ELEMENTS_SCHEMA,
   DoCheck,
+  effect,
+  EffectRef,
   ElementRef,
   Inject,
   Injector,
   OnInit,
   QueryList,
+  signal,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
@@ -25,6 +29,7 @@ import { HighlightedDirective } from './directives/highlighted.directive';
 import { NgxUnlessDirective } from './directives/ngx-unless.directive';
 import { Course } from './model/course';
 import { FilterByCategoryPipe } from './pipes/filter-by-category.pipe';
+import { CounterService } from './services/counter.service';
 import { CoursesService } from './services/courses.service';
 
 @Component({
@@ -60,14 +65,54 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
   prefetch:boolean = false;
   display:boolean = false;
+
+  // counter = signal(0);
+  chapter = signal({
+    id: 1,
+    title: "Be cool"
+  });
+
+  chapters = signal([
+    'Be Bold',
+    'Never Stop',
+  ]);
+
+  derivedCounter = computed(() => {
+    const counter = this.counterService.counter();
+    if(this.multiplier >= 10)
+    {
+      return counter * 10;
+    } else {
+      return 0;
+    }
+  });
+
+  multiplier: number = 0;
+  effectRef: EffectRef;
   constructor(
     private coursesService: CoursesService,
     @Inject(CONFIG_TOKEN) private config: AppConfig,
     private cd: ChangeDetectorRef,
-    private injector: Injector
+    private injector: Injector,
+    public counterService: CounterService
   ) {
     localStorage.setItem('AppComponent config:', JSON.stringify(this.config));
     localStorage.setItem('id', this.coursesService.id.toString());
+
+/*     const readOnlySignalCounter = this.counter.asReadonly();
+    console.log(readOnlySignalCounter()); */
+
+    this.effectRef = effect((onCleanUpOrDestroy) => {
+
+      onCleanUpOrDestroy(() => console.log("onCleanUpOrDestroy clean up or destroy occured"));
+      // const counter = this.counter();
+      const counter = this.counterService.counter();
+      const derivedCounter = this.derivedCounter();
+
+      console.log(`counter: ${counter} derived counter: ${derivedCounter}`);
+    }, {
+      manualCleanup: true,
+    })
   }
 
   ngAfterViewInit() {
@@ -117,5 +162,30 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
   onDisplay() {
     this.display = true;
+  }
+
+  increment() {
+    // this.counter.set(this.counter()+1);
+    // this.counter.update(value => value + 1);
+    this.counterService.increment();
+
+    // Wrong way to update signals never mutate signal values directly. because
+    // the mutated values will not show in case of onpush change detection.
+/*     this.chapter().title = "Hello World!";
+    this.chapters().push("New Chapter"); */
+
+    // Right way of mutating signal values
+    this.chapter.set({id: 1, title: "Hello World!"});
+    // this.chapters.update(chapters => [...chapters, "New Chapter " + this.counter()]);
+    this.chapters.update(chapters => [...chapters, "New Chapter " + this.counterService.counter()])
+
+  }
+
+  incrementMultiplier() {
+    this.multiplier++;
+  }
+
+  cleanUpEffect(): void {
+    this.effectRef.destroy();
   }
 }
